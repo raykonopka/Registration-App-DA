@@ -19,7 +19,7 @@ namespace RegistrationApp.Tests
         public void Test_CancelCourse()
         {
             var data = new EfData();
-            Course courseToCancel = new Course { Title = "Analysis of Algorithms", Credits = 3, DepartmentId = 10 };
+            Course courseToCancel = new Course { Title = "Analysis of Algorithms", Credits = 3, DepartmentId = 1 };
 
             //Add test course
             data.InsertCourse(courseToCancel);
