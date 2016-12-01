@@ -64,5 +64,6 @@ C:\RevatureDev\GitHub\registration-app-da\RegistrationApp\RegistrationApp.DataCl
 C:\RevatureDev\GitHub\registration-app-da\RegistrationApp\RegistrationApp.DataClient\bin\Microsoft.AI.Web.xml
 C:\RevatureDev\GitHub\registration-app-da\RegistrationApp\RegistrationApp.DataClient\bin\Microsoft.AI.WindowsServer.xml
 C:\RevatureDev\GitHub\registration-app-da\RegistrationApp\RegistrationApp.DataClient\bin\Microsoft.ApplicationInsights.xml
+C:\RevatureDev\GitHub\registration-app-da\RegistrationApp\RegistrationApp.DataClient\obj\Debug\RegistrationApp.DataClient.csprojResolveAssemblyReference.cache
 C:\RevatureDev\GitHub\registration-app-da\RegistrationApp\RegistrationApp.DataClient\obj\Debug\RegistrationApp.DataClient.dll
 C:\RevatureDev\GitHub\registration-app-da\RegistrationApp\RegistrationApp.DataClient\obj\Debug\RegistrationApp.DataClient.pdb
