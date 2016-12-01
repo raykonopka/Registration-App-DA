@@ -12,7 +12,7 @@ namespace RegistrationApp.DataClient
     {
         private RegistrationDBEntities db = new RegistrationDBEntities();
 
-        //General Data Access
+        //General Data Access.
 
         #region Student User Data Access
         public List<StudentUser> GetStudentsUsers()
