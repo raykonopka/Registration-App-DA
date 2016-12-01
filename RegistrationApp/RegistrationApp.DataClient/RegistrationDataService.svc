@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="RegistrationApp.DataClient.RegistrationDataService" CodeBehind="RegistrationDataService.svc.cs" %>

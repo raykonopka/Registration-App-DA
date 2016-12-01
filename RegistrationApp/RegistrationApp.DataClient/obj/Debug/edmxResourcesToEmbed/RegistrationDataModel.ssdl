@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RegistrationDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="BookmarkedSessions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentUserId" Type="int" Nullable="false" />
+    <Property Name="SessionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Courses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="DepartmentId" Type="int" Nullable="false" />
+    <Property Name="Credits" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CourseSessions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CourseId" Type="int" Nullable="false" />
+    <Property Name="Professor" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="StartTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="EndTime" Type="time" Precision="7" Nullable="false" />
+    <Property Name="DaysInSession" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Capacity" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Departments">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DepartmentName" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Majors">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MajorName" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="RegistrarUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="150" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Schedules">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+    <Property Name="CourseSessionId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StudentName" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="MajorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StudentUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="UserPassword" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="StudentId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="fk_bookmarkedsessions_sessionid">
+    <End Role="CourseSessions" Type="Self.CourseSessions" Multiplicity="1" />
+    <End Role="BookmarkedSessions" Type="Self.BookmarkedSessions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseSessions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookmarkedSessions">
+        <PropertyRef Name="SessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_bookmarkedsessions_studentuserid">
+    <End Role="StudentUsers" Type="Self.StudentUsers" Multiplicity="1" />
+    <End Role="BookmarkedSessions" Type="Self.BookmarkedSessions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StudentUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="BookmarkedSessions">
+        <PropertyRef Name="StudentUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_courses_departmentid">
+    <End Role="Departments" Type="Self.Departments" Multiplicity="1" />
+    <End Role="Courses" Type="Self.Courses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departments">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Courses">
+        <PropertyRef Name="DepartmentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_coursesessions_courseid">
+    <End Role="Courses" Type="Self.Courses" Multiplicity="1" />
+    <End Role="CourseSessions" Type="Self.CourseSessions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Courses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CourseSessions">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedules_coursesessionid">
+    <End Role="CourseSessions" Type="Self.CourseSessions" Multiplicity="1" />
+    <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CourseSessions">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedules">
+        <PropertyRef Name="CourseSessionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_schedules_studentid">
+    <End Role="Students" Type="Self.Students" Multiplicity="1" />
+    <End Role="Schedules" Type="Self.Schedules" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Schedules">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_students_majorid">
+    <End Role="Majors" Type="Self.Majors" Multiplicity="1" />
+    <End Role="Students" Type="Self.Students" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Majors">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Students">
+        <PropertyRef Name="MajorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_studentusers_studentid">
+    <End Role="Students" Type="Self.Students" Multiplicity="1" />
+    <End Role="StudentUsers" Type="Self.StudentUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentUsers">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RegistrationDBModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BookmarkedSessions" EntityType="Self.BookmarkedSessions" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="Courses" EntityType="Self.Courses" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="CourseSessions" EntityType="Self.CourseSessions" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="Departments" EntityType="Self.Departments" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="Majors" EntityType="Self.Majors" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="RegistrarUsers" EntityType="Self.RegistrarUsers" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="Schedules" EntityType="Self.Schedules" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="Students" EntityType="Self.Students" Schema="Registration" store:Type="Tables" />
+    <EntitySet Name="StudentUsers" EntityType="Self.StudentUsers" Schema="Registration" store:Type="Tables" />
+    <AssociationSet Name="fk_bookmarkedsessions_sessionid" Association="Self.fk_bookmarkedsessions_sessionid">
+      <End Role="CourseSessions" EntitySet="CourseSessions" />
+      <End Role="BookmarkedSessions" EntitySet="BookmarkedSessions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_bookmarkedsessions_studentuserid" Association="Self.fk_bookmarkedsessions_studentuserid">
+      <End Role="StudentUsers" EntitySet="StudentUsers" />
+      <End Role="BookmarkedSessions" EntitySet="BookmarkedSessions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_courses_departmentid" Association="Self.fk_courses_departmentid">
+      <End Role="Departments" EntitySet="Departments" />
+      <End Role="Courses" EntitySet="Courses" />
+    </AssociationSet>
+    <AssociationSet Name="fk_coursesessions_courseid" Association="Self.fk_coursesessions_courseid">
+      <End Role="Courses" EntitySet="Courses" />
+      <End Role="CourseSessions" EntitySet="CourseSessions" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedules_coursesessionid" Association="Self.fk_schedules_coursesessionid">
+      <End Role="CourseSessions" EntitySet="CourseSessions" />
+      <End Role="Schedules" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_schedules_studentid" Association="Self.fk_schedules_studentid">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="Schedules" EntitySet="Schedules" />
+    </AssociationSet>
+    <AssociationSet Name="fk_students_majorid" Association="Self.fk_students_majorid">
+      <End Role="Majors" EntitySet="Majors" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="fk_studentusers_studentid" Association="Self.fk_studentusers_studentid">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="StudentUsers" EntitySet="StudentUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
